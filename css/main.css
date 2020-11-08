@@ -317,13 +317,25 @@ aside {
 }
 
 footer {
-  margin: 0;
-  padding: 0;
-  width: 95%;
-  background-color: #22ff0033;
+  font-size: 14px;
+  color: #999;
+  line-height: 2;
 }
 
-.footer {
-  min-height: 50px;
+footer a {
+  color: #555;
+}
+
+#footer {
   width: 100%;
+  min-height: 50px;
+  margin-top: 8px;
+  padding: 16px 0;
+}
+
+.footer-inner {
+  text-align: center;
+  margin: 0 auto;
+  width: 960px;
+  padding-left: 260px;
 }
