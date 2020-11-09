@@ -13,15 +13,14 @@ body {
   position: relative;
 }
 
+.headerband {
+  height: 3px;
+  background: #febe85;
+}
 #header {
   position: relative;
   margin: 0 auto;
   width: 960px;
-}
-
-.headerband {
-  height: 3px;
-  background: #febe85;
 }
 
 .header-inner {
@@ -31,13 +30,6 @@ body {
   background-color: #f5f7f9;
   overflow: hidden;
   top: 0;
-}
-
-aside {
-  width: 240px;
-  margin: 0 16px;
-  /* background-color: yellow; */
-  float: left;
 }
 
 .menu {
@@ -339,3 +331,14 @@ footer a {
   width: 960px;
   padding-left: 260px;
 }
+
+@media (max-width: 991px) {
+  #header {
+    width: auto;
+  }
+  .header-inner {
+    position: relative;
+    width: auto;
+  }
+}
+
