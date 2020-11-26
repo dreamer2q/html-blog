@@ -36,3 +36,9 @@ function generateArticle(article) {
     </div>
 </article>`;
 }
+
+function checkResp(resp) {
+    if (resp.code != 200) {
+        throw `error ${resp.code} : ${resp.message}`;
+    }
+}
