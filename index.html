@@ -22,11 +22,11 @@
                 <p>幻梦终醒，不悔华年</p>
             </div>
             <div class="menu">
-                <li class="menu-item-active"><a href="#"><i class="fa fa-fw fa-home"></i>首页</a></li>
-                <li><a href="#"><i class="fa fa-fw fa-user"></i>关于</a></li>
-                <li><a href="#"><i class="fa fa-fw fa-archive"></i>归档</a></li>
-                <li><a href="#"><i class="fa fa-fw fa-tags"></i>标签</a></li>
-                <li><a href="#"><i class="fa fa-fw fa-users"></i>友链</a></li>
+                <li class="menu-item-active"><a href="index.html"><i class="fa fa-fw fa-home"></i>首页</a></li>
+                <li><a href="about.html"><i class="fa fa-fw fa-user"></i>关于</a></li>
+                <li><a href="archive.html"><i class="fa fa-fw fa-archive"></i>归档</a></li>
+                <li><a href="tags.html"><i class="fa fa-fw fa-tags"></i>标签</a></li>
+                <li><a href="friends.html"><i class="fa fa-fw fa-users"></i>友链</a></li>
             </div>
             <div id="person-bar">
                 <img class="site-author-avatar" src="assets/avatar.jpg" alt="Dreamer2q" srcset="">
@@ -112,9 +112,9 @@
 
     <script>
         $.get(`${baseUrl}/articles`).done((data) => {
-            checkResp(data);
+            let resp = parseResp(data);
             let posts = $('#posts');
-            data.data.forEach(item => {
+            resp.forEach(item => {
                 let article = generateArticle(item);
                 posts.append(article);
             });
