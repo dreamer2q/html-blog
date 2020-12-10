@@ -5,11 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>这是一个标题 - dreamer2q's blog</title>
+
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/markdown.css">
+    <!-- <link rel="stylesheet" href="css/prism.css"> -->
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/styles/default.min.css">
+
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet"
         type="text/css">
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/highlight.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/blog.js"></script>
@@ -73,61 +79,8 @@
 
     <main id="main">
         <div class="main-inner">
-            <div id="posts">
-                <!-- <article class="post">
-                    <div class="post-header">
-                        <h1 class="post-title">
-                            第一周，周报
-                        </h1>
-                        <div class="post-meta">
-                            <span class="post-time">
-                                <span class="post-meta-item-icon">
-                                    <i class="fa fa-calendar-o"></i>
-                                </span>
-                                <span class="post-meta-item-text">发布于</span>
-                                <span class="post-meta-item-time">2020-10-01</span>
-                            </span>
-                            <span class="post-category">
-                                <span class="post-meta-divider">|</span>
-                                <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span>
-                                <span class="post-meta-item-text">分类于</span>
-                                <span><a href="#"><span>Report</span></a></span>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="post-body" id="markdown-body">
-                        这里是文章的简介
-                    </div>
-                    <div class="post-footer">
-                    </div>
-                </article> -->
-            </div>
+            <div id="posts"></div>
             <div id="disqus_thread"></div>
-            <script>
-                let query = parseQuery(window.location.search);
-                if (query.slug) {
-                    $.get(`${baseUrl}/article/${query.slug}`).done((data) => {
-                        let resp = parseResp(data);
-                        let detail = generateDetail(resp);
-                        $('#posts').append(detail);
-                    });
-                }
-
-                var disqus_config = function () {
-                    this.page.url = 'https://blog.dreamer2q.wang/test-article-page.html';
-                    this.page.identifier = 'test-article-page-identifier';
-                };
-                (function () { // DON'T EDIT BELOW THIS LINE
-                    var d = document, s = d.createElement('script');
-                    s.src = 'https://dreamer2q.disqus.com/embed.js';
-                    s.setAttribute('data-timestamp', +new Date());
-                    (d.head || d.body).appendChild(s);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered
-                    by Disqus.</a></noscript>
-
-
         </div>
         <div class="clearfix"></div>
     </main>
@@ -146,6 +99,37 @@
         </div>
     </footer>
 
+    <noscript>
+        please notice, this site does not work without javascript disabled
+    </noscript>
+    <script>
+
+        let query = parseQuery(window.location.search);
+        if (query.slug) {
+            $.get(`${baseUrl}/article/${query.slug}`).done((data) => {
+                let resp = parseResp(data);
+                let detail = generateDetail(resp);
+                $('#posts').append(detail);
+                console.log(resp);
+                hljs.highlightBlock($('.markdown-body'));
+            });
+        }
+
+
+        var disqus_config = function () {
+            this.page.url = `https://blog.dreamer2q.wang/article/${query.slug}`;
+            this.page.identifier = `blog-dreamer2q-${query.slug}`;
+            console.log(window.location.pathname);
+            console.log(query.slug);
+        };
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://dreamer2q.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <!-- <script src="js/prism.js"></script> -->
 </body>
 
 </html>

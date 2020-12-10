@@ -27,7 +27,7 @@ function generateArticle(article) {
         <div class="post-brief-wrapper">
             ${article.description}
         </div>
-        <div class="post-button center">
+        <div class="post-button">
             <a href="${href}" class="btn">阅读全文 »</a>
         </div>
     </div>
@@ -60,8 +60,8 @@ function generateDetail(article) {
             </span>
         </div>
     </div>
-    <div class="post-body" id="markdown-body">
-            ${article.body_html}
+    <div class="post-detail markdown-body line-numbers">
+            ${markdownHtml}
     </div>
     <div class="post-footer">
     </div>

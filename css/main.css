@@ -278,6 +278,10 @@ img {
   line-height: 2;
 }
 
+.center {
+  margin: 0 auto;
+}
+
 .btn {
   text-decoration: none;
   display: inline-block;
@@ -302,6 +306,16 @@ img {
   height: 1px;
   background-color: #999;
   width: 8%;
+}
+
+/* 
+.post-body{
+
+} 
+*/
+
+.post-detail {
+  text-align: start;
 }
 
 .clearfix::after {
