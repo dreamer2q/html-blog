@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dreamer2q's Blog</title>
+    <title>关于我 - Dreamer2q's Blog</title>
     <link rel="stylesheet" href="css/main.css">
-    <!-- <script src="https://kit.fontawesome.com/f183f2077d.js" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="css/markdown.css">
+
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet"
         type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <script src="js/jquery.js"></script>
     <script src="js/blog.js"></script>
 </head>
@@ -22,8 +25,8 @@
                 <p>幻梦终醒，不悔华年</p>
             </div>
             <div class="menu">
-                <li class="menu-item-active"><a href="index.html"><i class="fa fa-fw fa-home"></i>首页</a></li>
-                <li><a href="about.html"><i class="fa fa-fw fa-user"></i>关于</a></li>
+                <li><a href="index.html"><i class="fa fa-fw fa-home"></i>首页</a></li>
+                <li class="menu-item-active"><a href="about.html"><i class="fa fa-fw fa-user"></i>关于</a></li>
                 <li><a href="archive.html"><i class="fa fa-fw fa-archive"></i>归档</a></li>
                 <li><a href="tags.html"><i class="fa fa-fw fa-tags"></i>标签</a></li>
                 <li><a href="friends.html"><i class="fa fa-fw fa-users"></i>友链</a></li>
@@ -72,24 +75,61 @@
     <main id="main">
         <div class="main-inner">
             <section id="posts">
+                <article class="post">
+                    <div class="post-header">
+                        <h1 class="post-title">
+                            <a class="post-title-link" href="#">关于我</a>
+                        </h1>
+                        <div class="post-meta">
+                            <span class="post-time">
+                                <span class="post-meta-item-icon">
+                                    <i class="fa fa-calendar-o"></i>
+                                </span>
+                                <span class="post-meta-item-text">最后更新于</span>
+                                <span id="about-last-updated" class="post-meta-item-time">${lastUpdated}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="post-body">
+                        <div class="post-brief-wrapper">
+                            <div id="about-me" class="post-detail markdown-body line-numbers">
+                                ${markdown}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-eof"></div>
+                    </div>
+                </article>
             </section>
+            <div id="disqus_thread"></div>
         </div>
         <div class="clearfix"></div>
     </main>
 
     <script>
-        $.get(`${baseUrl}/articles`).done((data) => {
+        $.get(`${baseUrl}/article/_about`).done((data) => {
             let resp = parseResp(data);
-            let posts = $('#posts');
-            resp.filter( (item) => !item.slug.startsWith('_')).forEach(item => {
-                let article = generateArticle(item);
-                posts.append(article);
-            });
-            let postCount = $("#post-article-count");
-            postCount.html(`${resp.length}`);
-            console.log(data);
+            $('#about-me').html(`${marked(resp.body)}`);
+            $('#about-last-updated').html(`${resp.updated_at}`);
+            console.log(resp);
         });
+
+        var disqus_config = function () {
+            this.page.url = `https://blog.dreamer2q.wang/about`;
+            this.page.identifier = `blog-dreamer2q-about`;
+            console.log(window.location.pathname);
+        };
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://dreamer2q.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+
     </script>
+
+
 
     <footer id="footer">
         <div class="footer-inner">
