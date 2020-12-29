@@ -1,5 +1,9 @@
 var baseUrl = "https://api.dreamer2q.wang/api";
 
+var config = {
+    suffix: "dreamer2q's blog",
+};
+
 function generateArticle(article) {
     let href = `article.html?slug=${article.slug}`;
     return `<article class="post">
@@ -84,3 +88,40 @@ function parseQuery(queryString) {
     }
     return query;
 }
+
+function setPageTitle(title) {
+    $('title').text(`${title} - ${config.suffix}`);
+}
+
+function initCommont(article) {
+    new DisqusJS({
+        shortname: 'dreamer2q',
+        siteName: 'dreamer2q',
+        identifier: article.identifier,
+        url: document.location.origin + document.location.pathname + document.location.search,
+        title: article.title,
+        api: 'https://proxy.dreamer2q.wang/api/',
+        apikey: 'KeLEEO3J0n5QbVXBATtOQ8dJWQJeST2cZAdle6lv3XAo6uLUnUluVbn6bCAfB7gL',
+        admin: 'dreamer2q',
+        adminLabel: ''
+    });
+}
+
+$(document).ready(function () {
+    // 首先获取导航栏距离浏览器顶部的高度
+    // var top = $('.nav').offset().top;
+
+    let top = 300;
+    //开始监控滚动栏scroll
+    $(document).scroll(function () {
+        //获取当前滚动栏scroll的高度并赋值
+        var scrTop = $(window).scrollTop();
+        //开始判断如果导航栏距离顶部的高度等于当前滚动栏的高度则开启悬浮
+        if (scrTop >= top) {
+            $('#person-bar').addClass('affix');
+            // .css({ 'position': 'fixed', 'top': '12px' });
+        } else {//否则清空悬浮
+            $('#person-bar').removeClass('affix');
+        }
+    });
+});

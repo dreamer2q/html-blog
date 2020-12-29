@@ -23,9 +23,9 @@
                 <p>幻梦终醒，不悔华年</p>
             </div>
             <div class="menu">
-                <li class="menu-item-active"><a href="index.html"><i class="fa fa-fw fa-home"></i>首页</a></li>
+                <li><a href="index.html"><i class="fa fa-fw fa-home"></i>首页</a></li>
                 <li><a href="about.html"><i class="fa fa-fw fa-user"></i>关于</a></li>
-                <li><a href="archive.html"><i class="fa fa-fw fa-archive"></i>归档</a></li>
+                <li class="menu-item-active"><a href="archive.html"><i class="fa fa-fw fa-archive"></i>归档</a></li>
                 <li><a href="tags.html"><i class="fa fa-fw fa-tags"></i>标签</a></li>
                 <li><a href="friends.html"><i class="fa fa-fw fa-users"></i>友链</a></li>
             </div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="site-state-item">
                         <a href="#">
-                            <span id="post-tag-count" class="site-state-item-count">1</span>
+                            <span id="post-tag-count" class="site-state-item-count">2</span>
                             <span class="site-state-item-name">标签</span>
                         </a>
                     </div>
@@ -73,21 +73,76 @@
     <main id="main">
         <div class="main-inner">
             <section id="posts">
+                <div class="posts-collapse">
+                    <span class="archive-move-on"></span>
+                    <span class="archive-page-counter">
+                        太棒了! 目前共计 0 篇日志。 继续努力。
+                    </span>
+                    <!-- APPEND DYNAMIC -->
+                </div>
             </section>
         </div>
         <div class="clearfix"></div>
     </main>
 
     <script>
+        function archiveYear(year) {
+            return `<div class="collection-title">
+                        <h2>${year}</h2>
+                    </div>`;
+        }
+
+        function archiveItem(item) {
+            let date = new Date(item['first_published_at']);
+            return `<article class="post">
+                        <header class="post-header">
+                            <h2 class="post-title">
+                                <a class="post-title-link" href="article.html?slug=${item.slug}">
+                                    <span itemprop="name">
+                                        ${item.title} 
+                                    </span>
+                                </a>
+                            </h2>
+                            <div class="post-meta">
+                                <time class="post-time">
+                                    ${date.getMonth()}-${date.getDay()}
+                                </time>
+                            </div>
+                        </header>
+                    </article>`;
+        }
+
         $.get(`${baseUrl}/articles`).done((data) => {
             let resp = parseResp(data);
-            let posts = $('#posts');
-            resp.filter((item) => !item.slug.startsWith('_')).forEach(item => {
-                let article = generateArticle(item);
-                posts.append(article);
-            });
+            let posts = $('#posts>.posts-collapse');
+
+            var timeline = {};
+            var archives = [];
+
+            resp.filter(item => !item.slug.startsWith('_'))
+                .forEach(item => {
+                    let pubtime = new Date(item['first_published_at']);
+                    let year = pubtime.getFullYear();
+                    if (typeof timeline[year] == "undefined") {
+                        timeline[year] = [];
+                    }
+                    timeline[year].push(item);
+                    // let article = generateArticle(item);
+                    // posts.append(article);
+                });
+
+
+            for (let year in timeline) {
+                posts.append(archiveYear(year));
+                timeline[year].forEach(article => {
+                    posts.append(archiveItem(article));
+                });
+            }
+
             let postCount = $("#post-article-count");
+
             postCount.html(`${resp.length}`);
+
             console.log(data);
         });
     </script>

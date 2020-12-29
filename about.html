@@ -12,6 +12,11 @@
         type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
+    <!-- disqusJS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3/dist/disqusjs.css">
+    <script src="https://cdn.jsdelivr.net/npm/disqusjs@1.3/dist/disqus.js"></script>
+
+    <!-- MyJS -->
     <script src="js/jquery.js"></script>
     <script src="js/blog.js"></script>
 </head>
@@ -49,7 +54,7 @@
                     </div>
                     <div class="site-state-item">
                         <a href="#">
-                            <span id="post-tag-count" class="site-state-item-count">102</span>
+                            <span id="post-tag-count" class="site-state-item-count">1</span>
                             <span class="site-state-item-name">标签</span>
                         </a>
                     </div>
@@ -113,19 +118,23 @@
             $('#about-me').html(`${marked(resp.body)}`);
             $('#about-last-updated').html(`${resp.updated_at}`);
             console.log(resp);
+            initCommont({
+                title: '关于我',
+                identifier: 'blog-dreamer2q-about',
+            });
         });
 
-        var disqus_config = function () {
-            this.page.url = `https://blog.dreamer2q.wang/about`;
-            this.page.identifier = `blog-dreamer2q-about`;
-            console.log(window.location.pathname);
-        };
-        (function () { // DON'T EDIT BELOW THIS LINE
-            var d = document, s = d.createElement('script');
-            s.src = 'https://dreamer2q.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
+        // var disqus_config = function () {
+        //     this.page.url = `https://blog.dreamer2q.wang/about`;
+        //     this.page.identifier = `blog-dreamer2q-about`;
+        //     console.log(window.location.pathname);
+        // };
+        // (function () { // DON'T EDIT BELOW THIS LINE
+        //     var d = document, s = d.createElement('script');
+        //     s.src = 'https://dreamer2q.disqus.com/embed.js';
+        //     s.setAttribute('data-timestamp', +new Date());
+        //     (d.head || d.body).appendChild(s);
+        // })();
 
     </script>
 
