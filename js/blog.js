@@ -100,7 +100,7 @@ function initCommont(article) {
         identifier: article.identifier,
         url: document.location.origin + document.location.pathname + document.location.search,
         title: article.title,
-        api: 'https://proxy.dreamer2q.wang/api/',
+        api: 'https://proxy.dreamer2q.wang/disqus/',
         apikey: 'KeLEEO3J0n5QbVXBATtOQ8dJWQJeST2cZAdle6lv3XAo6uLUnUluVbn6bCAfB7gL',
         admin: 'dreamer2q',
         adminLabel: ''
