@@ -4,6 +4,13 @@ var config = {
     suffix: "dreamer2q's blog",
 };
 
+const renderer = {
+    image(href, title, text) {
+        return `<img src="${href}" referrerPolicy="no-referrer">`
+    }
+}
+
+
 function generateArticle(article) {
     let href = `article.html?slug=${article.slug}`;
     return `<article class="post">
@@ -42,6 +49,7 @@ function generateArticle(article) {
 }
 
 function generateDetail(article) {
+    marked.use({ renderer });
     let markdownHtml = marked(article.body);
     return `<article class="post">
     <div class="post-header">
